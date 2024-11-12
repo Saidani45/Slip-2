@@ -1,0 +1,121 @@
+Slip 2
+
+Q. 1 write a java program to imlement Singleton pattern for multithreading.
+
+public class Main {
+public static void main(String ar[]) {
+Test1 t = new Test1();
+Test1 t2 = new Test1();
+Test1 t3 = new Test1();
+Thread tt = new Thread(t);
+Thread tt2 = new Thread(t2);
+
+Thread tt3 = new Thread(t3);
+Thread tt4 = new Thread(t);
+Thread tt5 = new Thread(t);
+tt.start();
+tt2.start();
+tt3.start();
+tt4.start();
+tt5.start();
+}
+}
+final class Test1 implements Runnable {
+@Override
+public void run() {
+for (int i = 0; i < 5; i++) {
+System.out.println(Thread.currentThread().getName() + " : " +
+Single.getInstance().hashCode());
+}
+}
+}
+class Single {
+private final static Single sing = new Single();
+private Single() {
+}
+public static Single getInstance() {
+return sing;
+}
+}
+
+Q. 2 To write a program to measure the distance using ultrasonic 
+sensor and make LED blink using Arduino 
+ 
+// constants 
+const int TRIG_PIN = 6; // Arduino pin connected to Ultrasonic 
+Sensor's TRIG pin 
+const int ECHO_PIN = 7; // Arduino pin connected to Ultrasonic 
+Sensor's ECHO pin 
+const int LED_PIN = 3;  // Arduino pin connected to LED's pin 
+const int DISTANCE_THRESHOLD = 50; // cenmeters 
+// variables 
+
+float duration_us, distance_cm; 
+void setup() { 
+Serial.begin(9600); // ini alize serial port 
+pinMode(TRIG_PIN, OUTPUT); // set Arduino pin to output mode 
+pinMode(ECHO_PIN, INPUT);  // set Arduino pin to input mode 
+pinMode(LED_PIN, OUTPUT);  // set Arduino pin to output mode 
+} 
+void loop() { 
+// generate 10-microsecond pulse to TRIG pin 
+digitalWrite(TRIG_PIN, HIGH); 
+delayMicroseconds(10); 
+digitalWrite(TRIG_PIN, LOW); 
+// measure dura on of pulse from ECHO pin 
+duration_us = pulseIn(ECHO_PIN, HIGH); 
+// calculate the distance 
+distance_cm = 0.017 * duration_us; 
+if (distance_cm < DISTANCE_THRESHOLD) 
+digitalWrite(LED_PIN, HIGH); // turn on LED 
+else 
+digitalWrite(LED_PIN, LOW);  // turn off LED 
+// print the value to Serial Monitor 
+Serial.print("distance: "); 
+Serial.print(distance_cm); 
+Serial.println(" cm"); 
+delay(500); 
+}
+
+
+Instructions for Proteus Circuit Diagram: 
+1. Components Needed: 
+o Arduino Uno (or any compatiwble board). 
+o HC-SR04 Ultrasonic Sensor. 
+o LED. 
+o 220Ω Resistor (for LED). 
+o 10kΩ Resistor (for ECHO pin pull-down). 
+o Wires for connections. 
+2. Circuit Connections: 
+o HC-SR04 Ultrasonic Sensor: 
+ VCC pin to 5V of Arduino. 
+ GND pin to GND of Arduino. 
+ TRIG pin to Arduino pin 6 (as defined in the code). 
+ ECHO pin to Arduino pin 7 (as defined in the code). 
+A ach a 10kΩ resistor to the ECHO pin to act as a 
+pull-down resistor (op onal, for stability). 
+o LED: 
+ The longer leg (anode) of the LED to Arduino pin 3 
+(as defined in the code). 
+ The shorter leg (cathode) to one end of a 220Ω 
+resistor. 
+ The other end of the 220Ω resistor to the GND of 
+the Arduino. 
+3. Proteus Simulation Setup: 
+o Place all the components in the Proteus workspace. 
+o Connect the TRIG and ECHO pins of the HC-SR04 to the 
+corresponding Arduino pins as defined in the code. 
+o Connect the LED to Arduino pin 3, with a current-limi ng 
+resistor. 
+o Make sure all components have correct connec ons for 
+power and ground. 
+4. Testing: 
+o A er placing and wiring the components, load the 
+Arduino code into Proteus by clicking on the Arduino and 
+selec ng the appropriate hex file (compiled from Arduino 
+IDE). 
+o Start the simula on, and you should see the LED turn on 
+when the distance measured by the ultrasonic sensor is 
+below the threshold of 50 cm. 
+o The serial monitor will show the measured distance in 
+cenmeters.
